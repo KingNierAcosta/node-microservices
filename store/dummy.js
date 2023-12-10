@@ -1,21 +1,36 @@
 const db = {
-  user: [{ id: 1, name: "Reinier" }],
+  user: [{ id: "1", name: "Reinier" }],
 };
 
-function list(table) {
+async function list(table) {
   return db[table];
 }
 
-function get(table, id) {
+async function get(table, id) {
   return db[table].find((it) => it.id === id) || null;
 }
 
-function upsert(table, data) {
+async function upsert(table, data) {
+  if (!db[table]) db[table] = [];
+
   db[table].push(data);
+  return data;
 }
 
-function remove(table, id) {
+async function remove(table, id) {
   return true;
+}
+
+async function query(table, q) {
+  let data = await list(table);
+
+  return (
+    data.filter((it) => {
+      return Object.keys(q).every((key) => {
+        return it[key] === q[key];
+      });
+    })[0] || null
+  );
 }
 
 module.exports = {
@@ -23,4 +38,5 @@ module.exports = {
   get,
   upsert,
   remove,
+  query,
 };
