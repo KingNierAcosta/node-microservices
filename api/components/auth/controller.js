@@ -10,7 +10,7 @@ module.exports = function (injectedStore) {
 
     return bcrypt.compare(password, data.password).then((result) => {
       if (result) {
-        return auth.sign(data);
+        return auth.sign({ ...data });
       } else {
         throw new Error("Invalid credentials");
       }
