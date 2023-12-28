@@ -21,6 +21,10 @@ const check = {
 
     return true;
   },
+
+  logged: (req) => {
+    return decodeHeader(req);
+  },
 };
 
 function decodeHeader(req) {
