@@ -11,4 +11,7 @@ module.exports = {
     password: process.env.MYSQL_PASSWORD || "root",
     database: process.env.MYSQL_DATABASE || "node_microservices",
   },
+  mysqlService: {
+    port: process.env.MYSQL_SERVICE_PORT || 3001,
+  },
 };
